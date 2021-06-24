@@ -142,7 +142,7 @@ def real_to_channels_np(X):
     X_c = X + 0.j
     return complex_to_channels_np(X_c)
 
-def image_resize(data,resized_shape):
+def image_resize_micropixel_size(data,resized_shape):
     
     def _resize(data,resized_shape):
         # resize_data=np.resize(data,resized_shape)
@@ -639,7 +639,7 @@ def projection():
         camera=cam.Config()
         slm = slmpy.SLMdisplay(isImageLock = True)
         for i in range(image_num):
-            mask_temp=image_resize(mask[i],display_shape).astype('uint8')
+            mask_temp=image_resize_micropixel_size(mask[i],display_shape).astype('uint8')
             mask_temp=np.pad(mask_temp, ((a,a), (b, b)), 'constant',constant_values=0)
             mask_temp=((mask_temp+WFC)%256).astype('uint8')
             slm.updateArray(mask_temp,sleep=0.15)
